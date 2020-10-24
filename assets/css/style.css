@@ -1,0 +1,19 @@
+.ungu {
+  background-color: #37003C !important;
+}
+
+.ungu-text {
+  color: #37003C !important;
+}
+
+.progress{
+  background-color:#BCAABE;
+}
+.progress .indeterminate {
+
+  background-color: #37003C;
+}
+
+th {
+  border-radius: 0;
+}
