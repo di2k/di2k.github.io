@@ -2,7 +2,7 @@ const base_url = 'https://api.football-data.org'
 const api_token = '00e7c80e38ef4d28a2c4d31aa7138d91'
 
 let status = res => {
-    if(res.status != 200){
+    if(res.status !== 200){
         console.log(`Error : ${res.status}`)
         return Promise.reject(new Error(res.statusText()))
     }else{
@@ -10,25 +10,26 @@ let status = res => {
     }
 }
 
+let fetchApi = (url) => {
+    return fetch(url, {
+        headers: {
+            "X-Auth-Token": api_token,
+        },
+    });
+};
+
 const getStandings = leagueID => {
     if('caches' in window){
         caches.match(`${base_url}/v2/competitions/${leagueID}/standings`)
         .then(res => {
             if(res){
-                res.json()
-                .then(data => {
+                res.json().then(data => {
                     getStandingHTML(data)
-                })
-                .catch(err => console.log(err))
+                }).catch(err => console.log(err))
             }
         })
     }
-    
-    fetch(`${base_url}/v2/competitions/${leagueID}/standings`,{
-        headers:{
-            'X-Auth-Token' : api_token
-        }
-    })
+    fetchApi(`${base_url}/v2/competitions/${leagueID}/standings`)
     .then(status)
     .then(res => res.json())
     .then(data => {
@@ -50,11 +51,7 @@ const getTeams = leagueID => {
             })
         
     }
-    fetch(`${base_url}/v2/competitions/${leagueID}/teams`,{
-        headers : {
-            'X-Auth-Token' : api_token
-        }
-    })
+    fetchApi(`${base_url}/v2/competitions/${leagueID}/teams`)
     .then(status)
     .then(res => res.json())
     .then(data => {

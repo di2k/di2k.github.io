@@ -6,7 +6,7 @@ const id_liga = '2021'
 const loadPage = (path = 'home') => {
     let xhr = new XMLHttpRequest()
     xhr.onreadystatechange = () => {
-        if(xhr.readyState == 4){
+        if(xhr.readyState === 4){
             let element = document.querySelector('#body-content')
             if(xhr.status == 200){
                 element.innerHTML = xhr.responseText
